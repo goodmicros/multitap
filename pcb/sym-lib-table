@@ -1,0 +1,4 @@
+(sym_lib_table
+  (lib (name "multitap")(type "KiCad")(uri "${KIPRJMOD}/library/multitap.kicad_sym")(options "")(descr ""))
+  (lib (name "ATMEGA32U4-16AU")(type "KiCad")(uri "${KIPRJMOD}/library/ATMEGA32U4-16AU.kicad_sym")(options "")(descr ""))
+)
