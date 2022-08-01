@@ -5,6 +5,10 @@ This projects goal is to add USB functionality up to four of our retro style joy
 download and install the joystick library (https://github.com/MHeironimus/ArduinoJoystickLibrary)
  to the Arduino IDE and upload to an "arduino leonardo".  
 
+## Linux config  
+https://superuser.com/questions/104887/usb-joystick-with-linux-only-works-when-i-disconnected-and-reconnected-its  
+https://mheironimus.blogspot.com/2015/09/linux-support-for-arduino-leonardo.html  
+
 ## ATmega32U4 GPIO pinout  
 The device multiplexes each joystick via their GND and updates their status as separate USB HID devices.  
 

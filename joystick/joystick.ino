@@ -9,9 +9,9 @@ https://github.com/goodmicros/multitap
 //four joysticks with two buttons and axis
 Joystick_ Joystick[] = {
     Joystick_(JOYSTICK_DEFAULT_REPORT_ID,JOYSTICK_TYPE_JOYSTICK, 2, 0, true, true, false, false, false, false, false, false, false, false, false),
-    Joystick_(JOYSTICK_DEFAULT_REPORT_ID,JOYSTICK_TYPE_JOYSTICK, 2, 0, true, true, false, false, false, false, false, false, false, false, false),
-    Joystick_(JOYSTICK_DEFAULT_REPORT_ID,JOYSTICK_TYPE_JOYSTICK, 2, 0, true, true, false, false, false, false, false, false, false, false, false),
-    Joystick_(JOYSTICK_DEFAULT_REPORT_ID,JOYSTICK_TYPE_JOYSTICK, 2, 0, true, true, false, false, false, false, false, false, false, false, false)
+    Joystick_(JOYSTICK_DEFAULT_REPORT_ID+1,JOYSTICK_TYPE_JOYSTICK, 2, 0, true, true, false, false, false, false, false, false, false, false, false),
+    Joystick_(JOYSTICK_DEFAULT_REPORT_ID+2,JOYSTICK_TYPE_JOYSTICK, 2, 0, true, true, false, false, false, false, false, false, false, false, false),
+    Joystick_(JOYSTICK_DEFAULT_REPORT_ID+3,JOYSTICK_TYPE_JOYSTICK, 2, 0, true, true, false, false, false, false, false, false, false, false, false)
 };
 
 // button order
@@ -32,7 +32,7 @@ void setup() {
     PORTB |= 0b111111 << 1; //pull-up
 
     //configure usb joysticks
-    for( int i = 0; i < 3; i++){
+    for( int i = 0; i < 4; i++){
         Joystick[i].setXAxisRange( -1, 1);
         Joystick[i].setYAxisRange( -1, 1);
         Joystick[i].begin(false);
@@ -45,8 +45,8 @@ void loop() {
     inputCounter = ( inputCounter + 1) & 0b11; //count only to 3
 
     //set mux on selected joystick as output GND and rest to high-z
-    DDRF &= 0xf0; //set PF4-7 as high-z
-    DDRF |= ( 1 << ( inputCounter + 4)); //set selected as GND
+    DDRF &= 0x0f; //set PF4-7 as input
+    DDRF |= ( 1 << ( inputCounter + 4)); //set selected as output
   
     //read input with pressed as 1
     uint8_t input = ~PINB >> 1 & 0b111111; //read and mask PB1-5
