@@ -24,8 +24,8 @@ Joystick_ Joystick[] = {
 
 void setup() {
     //joystick mux config (PF4-7)
-    DDRF  &= ~( 0b1111 << 4); //input in order to get them high-z
-    PORTF &= ~( 0b1111 << 4); //high-z
+    DDRF  &= 0x0f; //input in order to get them high-z
+    PORTF &= 0x0f; //high-z
 
     //joystick input config (PB1-6)
     DDRB  &= ~(0b111111 << 1); //input
@@ -45,8 +45,12 @@ void loop() {
     inputCounter = ( inputCounter + 1) & 0b11; //count only to 3
 
     //set mux on selected joystick as output GND and rest to high-z
+    MCUCR |= 1<<4; //disable pull-ups
     DDRF &= 0x0f; //set PF4-7 as input
     DDRF |= ( 1 << ( inputCounter + 4)); //set selected as output
+    MCUCR &= ~(1<<4); //enable pull-ups
+
+    delay(10); //wait for selected gnd to go low
   
     //read input with pressed as 1
     uint8_t input = ~PINB >> 1 & 0b111111; //read and mask PB1-5
